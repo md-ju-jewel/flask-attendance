@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Today's Attendance</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 40px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 4px; }
+    .admin-buttons {
+      margin-top: 20px;
+    }
+    .admin-buttons a {
+      margin: 0 10px;
+      padding: 8px 16px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Present Students for Today</h1>
+  {% if present_ids %}
+    <ul>
+  {% for sid in present_ids %}
+    <li>
+      {{ sid }}
+      {% if admin %}
+        <form method="post" style="display:inline;">
+          <input type="hidden" name="delete_id" value="{{ sid }}">
+          <button type="submit" style="margin-left: 10px;">Delete</button>
+        </form>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+  {% else %}
+    <p>No one is present yet.</p>
+  {% endif %}
+
+  {% if admin %}
+  <div class="admin-buttons">
+    <a href="/export">Export to Excel</a>
+    <a href="/admin/history">View History</a>
+    <a href="/admin/logout">Logout</a>
+  </div>
+  {% else %}
+  <p><a href="/">Back to Home</a></p>
+  {% endif %}
+</body>
+</html>

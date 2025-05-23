@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance History</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 40px; }
+    input, button { padding: 8px; margin: 5px; }
+    ul { list-style: none; padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>View Attendance History</h1>
+  <form method="post">
+    <input type="date" name="date" required value="{{ selected_date }}">
+    <input type="text" name="filter_id" placeholder="Filter by ID (optional)" value="{{ filter_id }}">
+    <button type="submit">Show</button>
+  </form>
+
+  {% if selected_date %}
+    <h2>Attendance for {{ selected_date }}</h2>
+    <ul>
+      {% for sid in records %}
+        <li>{{ sid }}</li>
+      {% endfor %}
+      {% if not records %}
+        <li>No records found.</li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+  <p><a href="/admin/present">Back to Dashboard</a></p>
+</body>
+</html>
